@@ -5,7 +5,7 @@ when defined(unix):
   cdecl, dynlib: libname,
 .}
 {.pragma: prefixed, importc: "modbus_$1".}
-{.pragma: same, importc: "$1".}
+{.pragma: samename, importc: "$1".}
 
 type
   ModbusStruct {.final, pure.} = object
@@ -26,18 +26,18 @@ type
     
 
 proc modbus_new_rtu(device: cstring, baud: cint, parity: char,
-                    data_bit: cint, stop_bit: cint): Modbus {.libmodbus, same.}
+                    data_bit: cint, stop_bit: cint): Modbus {.libmodbus, samename.}
 
 proc new_rtu*(device: cstring, baud: SerialBaud, parity: SerialParity,
               data_bit: int, stop_bit: int): Modbus =
   result = modbus_new_rtu(device, cast[cint](baud), cast[char](parity),
                           cast[cint](data_bit), cast[cint](stop_bit))
 
-proc free(ctx: Modbus) {.libmodbus, prefixed.}
+proc free*(ctx: Modbus) {.libmodbus, prefixed.}
 
-proc modbus_rtu_get_serial_mode(ctx: Modbus): cint {.libmodbus, same.}
+proc modbus_rtu_get_serial_mode(ctx: Modbus): cint {.libmodbus, samename.}
 
-proc modbus_rtu_set_serial_mode(ctx: Modbus, mode: cint): cint {.libmodbus, same.}
+proc modbus_rtu_set_serial_mode(ctx: Modbus, mode: cint): cint {.libmodbus, samename.}
 
 proc rtu_get_serial_mode*(ctx: Modbus): RtuMode =
   var t: int = ctx.modbus_rtu_get_serial_mode()
@@ -66,7 +66,7 @@ proc close*(ctx: Modbus) {.libmodbus, prefixed.}
 proc flush*(ctx: Modbus) {.libmodbus, prefixed.}
 
 proc modbus_read_input_registers(ctx: Modbus, address: cint, nb: cint,
-                                 dest: pointer): cint {.libmodbus, same.}
+                                 dest: pointer): cint {.libmodbus, samename.}
 
 proc read_input_registers*(ctx: Modbus, address: int, nb: int): seq[uint16] =
   result = newSeq[uint16](nb)

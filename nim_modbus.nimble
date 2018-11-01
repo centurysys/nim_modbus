@@ -5,7 +5,7 @@ author        = "Takeyoshi Kikuchi"
 description   = "libmodbus binding for Nim"
 license       = "MIT"
 srcDir        = "src"
-
+skipDirs      = @["examples"]
 
 # Dependencies
 
