@@ -7,6 +7,8 @@ license       = "MIT"
 srcDir        = "src"
 skipDirs      = @["examples"]
 
-# Dependencies
+task build_arm, "Build for ARM":
+  exec "nim c --cpu:arm -d:release examples/modbus_example"
 
+# Dependencies
 requires "nim >= 0.19.0"
